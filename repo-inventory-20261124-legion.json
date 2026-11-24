@@ -1,0 +1,256 @@
+{
+  "schema": "update-helper.repo-inventory.v1",
+  "host": "LEGION",
+  "root": "C:\\work",
+  "utc": "2026-11-24T04:47:19.812927+00:00",
+  "repositories": [
+    {
+      "repository": "longchat-perf",
+      "head": "e13a988186ab3e560bbb1767f660b27f7336c747",
+      "branch": "main",
+      "clean": true,
+      "changed_entries": 0,
+      "reference_only": false
+    },
+    {
+      "repository": "LuaPadModern",
+      "head": "559a721ba95f23b419af2ca02597f7d2079c8e18",
+      "branch": "main",
+      "clean": true,
+      "changed_entries": 0,
+      "reference_only": false
+    },
+    {
+      "repository": "Rift-Personal-Teleporter",
+      "head": "951dbc0e2f22fe6d4ba9660cb0914007924426b5",
+      "branch": "main",
+      "clean": false,
+      "changed_entries": 1,
+      "reference_only": false
+    },
+    {
+      "repository": "RIFT.RE-Spellcasting",
+      "head": "541c38523eb3e4f205f0008a7b15638a99ea3401",
+      "branch": "main",
+      "clean": true,
+      "changed_entries": 0,
+      "reference_only": false
+    },
+    {
+      "repository": "Rift_Memory_Mover",
+      "head": null,
+      "branch": "master",
+      "clean": false,
+      "changed_entries": 6,
+      "reference_only": false
+    },
+    {
+      "repository": "Rift_Taxi",
+      "head": "dbfff0f01126fdc6b2776579ac1643c8f6c14de2",
+      "branch": "main",
+      "clean": true,
+      "changed_entries": 0,
+      "reference_only": false
+    },
+    {
+      "repository": "RiftChatModern",
+      "head": "86fd85b637d5bd90ad237aad3aabde4ab4cc8a0a",
+      "branch": "main",
+      "clean": true,
+      "changed_entries": 0,
+      "reference_only": false
+    },
+    {
+      "repository": "RiftFlythrough",
+      "head": "5bcd4f3558780d08f05d675ed83435f5a5295e7e",
+      "branch": "master",
+      "clean": true,
+      "changed_entries": 0,
+      "reference_only": false
+    },
+    {
+      "repository": "riftreader2",
+      "head": "f62b3be3e22dea08e57539be6fb4cc28434be1c5",
+      "branch": "codex/modular-foundation",
+      "clean": false,
+      "changed_entries": 2,
+      "reference_only": false
+    },
+    {
+      "repository": "RiftWorld",
+      "head": "dfb35b5cce0d6f62caf01dc329966cd030799234",
+      "branch": "main",
+      "clean": true,
+      "changed_entries": 0,
+      "reference_only": false
+    },
+    {
+      "repository": "RR2 setup 63ca4b61",
+      "head": "bca7ec89adf329b4a819c79aa7315573a5528776",
+      "branch": "(detached)",
+      "clean": false,
+      "changed_entries": 14,
+      "reference_only": false
+    },
+    {
+      "repository": "rr2-portable-rehearsal-f6d5b52",
+      "head": "f6d5b528176a9f9e4fcf2e7f19494b67d7dfa639",
+      "branch": "(detached)",
+      "clean": true,
+      "changed_entries": 0,
+      "reference_only": false
+    },
+    {
+      "repository": "rr2-python-c25e42a",
+      "head": "c25e42a0d1035412ff98f8bc3a57d8b651479b89",
+      "branch": "(detached)",
+      "clean": true,
+      "changed_entries": 0,
+      "reference_only": false
+    },
+    {
+      "repository": "rr2-validation-325170d",
+      "head": "325170dcb9247b8e9178dad0576b803d14fe1cab",
+      "branch": "(detached)",
+      "clean": true,
+      "changed_entries": 0,
+      "reference_only": false
+    },
+    {
+      "repository": "rr2-validation-7ef65f2",
+      "head": "7ef65f26a45608e99e14eed2887dd7563c6fa1a5",
+      "branch": "(detached)",
+      "clean": true,
+      "changed_entries": 0,
+      "reference_only": false
+    },
+    {
+      "repository": "rr2-validation-af62259",
+      "head": "af62259307c8be646658aeb138480fa20e463306",
+      "branch": "(detached)",
+      "clean": true,
+      "changed_entries": 0,
+      "reference_only": false
+    },
+    {
+      "repository": "rr2-validation-b108ba1",
+      "head": "b108ba1426e33954e2d4d9a3c03fe359cb04a4fc",
+      "branch": "(detached)",
+      "clean": true,
+      "changed_entries": 0,
+      "reference_only": false
+    },
+    {
+      "repository": "rr2-validation-ce8f073",
+      "head": "ce8f0734ad967e6139edc3b7eae4dac52ea1fe47",
+      "branch": "(detached)",
+      "clean": true,
+      "changed_entries": 0,
+      "reference_only": false
+    },
+    {
+      "repository": "rr2-validation-f8aaabd",
+      "head": "f8aaabdfa9da111829af6d049e565e4f39648198",
+      "branch": "(detached)",
+      "clean": true,
+      "changed_entries": 0,
+      "reference_only": false
+    },
+    {
+      "repository": "rr2-validation-fdeb65b",
+      "head": "fdeb65bbe70c0cda4d22ff7c400164d31b628d0d",
+      "branch": "(detached)",
+      "clean": true,
+      "changed_entries": 0,
+      "reference_only": false
+    },
+    {
+      "repository": "rre",
+      "head": "3dafd763cf30249ec5573c25296299f91bbd60e3",
+      "branch": "main",
+      "clean": true,
+      "changed_entries": 0,
+      "reference_only": false
+    },
+    {
+      "repository": "rre-cds-key-offline-20261110",
+      "head": "68577f9b53e76090f8a3de1618b8428097cbecca",
+      "branch": "agents/cds-key-offline-20261110",
+      "clean": true,
+      "changed_entries": 0,
+      "reference_only": false
+    },
+    {
+      "repository": "rre-collector-offline-20261110",
+      "head": "2cac95fffcef664003794ffdd131760502a127f5",
+      "branch": "agents/collector-offline-20261110",
+      "clean": true,
+      "changed_entries": 0,
+      "reference_only": false
+    },
+    {
+      "repository": "rre-dotnet-readiness-20261110",
+      "head": "ca551e6af023647b9e07919d15b6a5ff41824dd5",
+      "branch": "agents/reader-dotnet-readiness-20261110",
+      "clean": true,
+      "changed_entries": 0,
+      "reference_only": false
+    },
+    {
+      "repository": "rre-quest-journal-offline-20261111",
+      "head": "427f215d0271ead78870e4fcbe97055e28462a61",
+      "branch": "agents/quest-journal-offline-20261111",
+      "clean": false,
+      "changed_entries": 1,
+      "reference_only": false
+    },
+    {
+      "repository": "rre-sc103-soul-aggregates-20261110",
+      "head": "da7ef7693f24fc1300c8b514ca27cdcc791b7def",
+      "branch": "agents/sc103-soul-aggregates-20261110",
+      "clean": true,
+      "changed_entries": 0,
+      "reference_only": false
+    },
+    {
+      "repository": "Star_Wrath_RE",
+      "head": "2efc5ab810780cd95dc4a8d4cdebcfe45c320ccf",
+      "branch": "main",
+      "clean": true,
+      "changed_entries": 0,
+      "reference_only": false
+    },
+    {
+      "repository": "telarafly",
+      "head": "41aacc0485ed2c90ceb1df7cdb7653853cc52d18",
+      "branch": "master",
+      "clean": true,
+      "changed_entries": 0,
+      "reference_only": true
+    },
+    {
+      "repository": "Update Helper",
+      "head": null,
+      "branch": "main",
+      "clean": false,
+      "changed_entries": 5,
+      "reference_only": false
+    },
+    {
+      "repository": "workbridge-legion-pc-operator",
+      "head": "ca73af001d2164527995741299153e0469b6028e",
+      "branch": "codex/legion-pc-operator",
+      "clean": false,
+      "changed_entries": 2,
+      "reference_only": false
+    },
+    {
+      "repository": "workbridge-mcp",
+      "head": "9b5043f6cb2f1a8a697d7f90d54b222439330d49",
+      "branch": "main",
+      "clean": false,
+      "changed_entries": 2,
+      "reference_only": false
+    }
+  ]
+}

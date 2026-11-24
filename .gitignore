@@ -1,0 +1,8 @@
+__pycache__/
+*.py[cod]
+*.tmp
+.local/
+# Raw game binaries, if independently retained, are never committed.
+*.exe
+*.dll
+*.pak
