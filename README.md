@@ -10,7 +10,7 @@ Reconstructed on LEGION on November 23–24, 2026, because the original AMD-DESK
 
 ```powershell
 Set-Location -LiteralPath 'C:\work\Update Helper'
-python -B -m unittest -v test_update_helper test_post_patch
+python -B -m unittest -v test_update_helper test_post_patch test_verify_cycle
 python -B update_helper.py verify before-20261124-legion.json --expected-sha256 6612cab5ad31162cc0eab21266ed3839c4a2ef1e12e3a2aa82536d5b195c983e
 ```
 
@@ -20,7 +20,17 @@ After the game updater has fully completed and files have settled, the recommend
 python -B post_patch.py --expected-host LEGION --before before-20261124-legion.json --expected-before-sha256 6612cab5ad31162cc0eab21266ed3839c4a2ef1e12e3a2aa82536d5b195c983e --prefix patch-20261124-attempt-01
 ```
 
-This captures the installation twice, compares the two post-patch states and publishes a final changes report only if the states match. Each retry must use a new prefix. For a manual, step-by-step equivalent, use new names for every attempt:
+This captures the installation twice, compares the two post-patch states and publishes a final changes report only if the states match. Each retry must use a new prefix.
+
+### Independently verify the completed evidence bundle
+
+```powershell
+python -B verify_cycle.py --before before-20261124-legion.json --prefix patch-20261124-attempt-01 --expected-evidence-host LEGION --expected-before-sha256 6612cab5ad31162cc0eab21266ed3839c4a2ef1e12e3a2aa82536d5b195c983e
+```
+
+Run this before distributing a completed comparison to downstream repositories. The verifier re-parses all five JSON inputs, checks the pre-patch pin, verifies both post-capture phases and host identity, recomputes both reports, and checks their byte-level provenance. It only reads stored evidence and does not scan the game. A successful result confirms stored evidence consistency, not live client behavior or independently authenticated game-file contents.
+
+For a manual, step-by-step comparison, use new names for every attempt (the independent bundle verifier expects the four output names and provenance produced by post_patch.py):
 
 ```powershell
 python -B update_helper.py capture --phase after --expected-host LEGION --out after-20261124-legion-a.json

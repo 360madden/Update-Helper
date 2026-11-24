@@ -20,12 +20,14 @@ From PowerShell on LEGION:
 
 ```powershell
 Set-Location -LiteralPath 'C:\work\Update Helper'
-python -B -m unittest -v test_update_helper test_post_patch
+python -B -m unittest -v test_update_helper test_post_patch test_verify_cycle
 if ($LASTEXITCODE -ne 0) { throw 'Tests failed' }
 python -B update_helper.py verify before-20261124-legion.json --expected-sha256 6612cab5ad31162cc0eab21266ed3839c4a2ef1e12e3a2aa82536d5b195c983e
 if ($LASTEXITCODE -ne 0) { throw 'Baseline invalid' }
 python -B post_patch.py --expected-host LEGION --before before-20261124-legion.json --expected-before-sha256 6612cab5ad31162cc0eab21266ed3839c4a2ef1e12e3a2aa82536d5b195c983e --prefix patch-20261124-attempt-01
 if ($LASTEXITCODE -ne 0) { throw 'Capture or comparison failed; preserve evidence and investigate' }
+python -B verify_cycle.py --before before-20261124-legion.json --prefix patch-20261124-attempt-01 --expected-evidence-host LEGION --expected-before-sha256 6612cab5ad31162cc0eab21266ed3839c4a2ef1e12e3a2aa82536d5b195c983e
+if ($LASTEXITCODE -ne 0) { throw 'Stored evidence verification failed; do not distribute' }
 ```
 
 The cycle creates two complete after manifests, a consistency report and, only if stable, a changes report. Use a fresh attempt prefix on retry. Compare file content, not merely timestamps. If no file content changed, report no observed installation-file change, not a claim that servers did not update.
@@ -49,3 +51,8 @@ The cycle creates two complete after manifests, a consistency report and, only i
 - Expanded regression suite initially found a Windows drive-relative path validation defect (`a:stream`). Explicitly rejecting colons corrected it. On 2026-11-24 at 05:11 UTC, the complete 26-test suite passed on LEGION (exit 0).
 - Pinned verification of the real 266-file baseline passed; an intentionally wrong post-patch pin returned exit 2 before capture. Git diff check passed.
 - Do not regenerate the pre-patch baseline after the updater runs.
+
+### Independent evidence verification
+- Validated hardening checkpoint committed as `4535f48d0ab09bbd7296e0331f7742ac08933b9d`.
+- `verify_cycle.py` independently recomputes both reports and binds all five files to their exact bytes and the trusted baseline pin; no game scan or source changes. It rejects incomplete bundles, altered snapshots/reports, incorrect pins, host/phase mismatches and ambiguous numeric types.
+- On 2026-11-24 at 05:12 UTC, all 35 regression tests passed on LEGION (exit 0), including nine independent-verifier cases. No real post-patch capture has been performed by this test suite.
