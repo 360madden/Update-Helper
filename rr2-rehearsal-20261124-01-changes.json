@@ -1,0 +1,24 @@
+{
+  "schema": "update-helper.comparison.v1",
+  "host": "LEGION",
+  "root": "C:\\Program Files (x86)\\Glyph\\Games\\RIFT\\Live",
+  "before_utc": "2026-11-24T04:47:24.724674+00:00",
+  "after_utc": "2026-11-24T05:14:57.933032+00:00",
+  "counts": {
+    "added": 0,
+    "removed": 0,
+    "modified": 0,
+    "unchanged": 266
+  },
+  "before_executable_sha256": "df954b798331e18359be62a31cc74b49fc3f50b87385ebb080a5448256322c01",
+  "after_executable_sha256": "df954b798331e18359be62a31cc74b49fc3f50b87385ebb080a5448256322c01",
+  "before_file_count": 266,
+  "after_file_count": 266,
+  "before_bytes": 26754214661,
+  "after_bytes": 26754214661,
+  "executable_changed": false,
+  "changes": [],
+  "before_manifest_sha256": "6612cab5ad31162cc0eab21266ed3839c4a2ef1e12e3a2aa82536d5b195c983e",
+  "after_manifest_sha256": "6dda8883bf976fdc9042f7010d03c8fd0473ea58abb8cc842c0eea52780de6a9",
+  "consistency_manifest_sha256": "87935653070fe32355c95b7961544eb9a1e93400324b4068b16f2cb0ebe72e32"
+}

@@ -56,3 +56,8 @@ The cycle creates two complete after manifests, a consistency report and, only i
 - Validated hardening checkpoint committed as `4535f48d0ab09bbd7296e0331f7742ac08933b9d`.
 - `verify_cycle.py` independently recomputes both reports and binds all five files to their exact bytes and the trusted baseline pin; no game scan or source changes. It rejects incomplete bundles, altered snapshots/reports, incorrect pins, host/phase mismatches and ambiguous numeric types.
 - On 2026-11-24 at 05:12 UTC, all 35 regression tests passed on LEGION (exit 0), including nine independent-verifier cases. No real post-patch capture has been performed by this test suite.
+
+## RR2 pre-patch rehearsal — November 24, 2026
+- Two real read-only game installation captures ran from 05:12:17 to 05:14:57 UTC on LEGION. Both contain 266 files. `verify_cycle.py` independently verified the `rr2-rehearsal-20261124-01` bundle at 05:39 UTC against the original pinned baseline: 0 added, 0 removed, 0 modified, 266 unchanged. Executable SHA-256 remains the original pre-patch identity.
+- The `rr2-rehearsal-20261124-02-recheck` reports independently agree with the verified rehearsal comparison. They are comparison-only outputs, not a second full capture bundle.
+- These six JSON files preserve rehearsal evidence, not confirmation of the scheduled patch. Do not substitute them for the original baseline or the future actual post-patch cycle. Raw game binaries remain local and ignored by Git.
