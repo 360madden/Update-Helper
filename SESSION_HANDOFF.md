@@ -22,9 +22,9 @@ From PowerShell on LEGION:
 Set-Location -LiteralPath 'C:\work\Update Helper'
 python -B -m unittest -v test_update_helper test_post_patch
 if ($LASTEXITCODE -ne 0) { throw 'Tests failed' }
-python -B update_helper.py verify before-20261124-legion.json
+python -B update_helper.py verify before-20261124-legion.json --expected-sha256 6612cab5ad31162cc0eab21266ed3839c4a2ef1e12e3a2aa82536d5b195c983e
 if ($LASTEXITCODE -ne 0) { throw 'Baseline invalid' }
-python -B post_patch.py --expected-host LEGION --before before-20261124-legion.json --prefix patch-20261124-attempt-01
+python -B post_patch.py --expected-host LEGION --before before-20261124-legion.json --expected-before-sha256 6612cab5ad31162cc0eab21266ed3839c4a2ef1e12e3a2aa82536d5b195c983e --prefix patch-20261124-attempt-01
 if ($LASTEXITCODE -ne 0) { throw 'Capture or comparison failed; preserve evidence and investigate' }
 ```
 
@@ -39,3 +39,13 @@ The cycle creates two complete after manifests, a consistency report and, only i
 - Exclude rehearsal clones from default recovery targets unless a maintainer specifically selects them. `telarafly` is a protected reference, never modified. Star_Wrath_RE concerns another game and is not a RIFT patch target.
 - Do not assume old AMD-DESKTOP inventory matches LEGION. RR2 and RPT had existing dirty files at preflight; avoid overwriting or staging them. RIFT_Memory_Mover had an unborn history.
 - Preserve the evidence and local Git history. Reconcile original history explicitly when AMD-DESKTOP returns.
+
+## Reliability hardening
+- Use the pinned baseline SHA-256 in the command above. Do not calculate a replacement pin from an untrusted or edited baseline.
+- Atomic no-overwrite publication; parse and hash identical bytes; reject ambiguous JSON fields and unsafe Windows filenames. Revalidate the three input manifests before final comparison publication.
+
+### Reliability audit checkpoint
+- Original commit `914028074808f9f01b4bdcf942156a29d72ddc07` preserves the first validated implementation and original evidence. Original evidence files remain byte-for-byte unchanged and match their committed Git blobs.
+- Expanded regression suite initially found a Windows drive-relative path validation defect (`a:stream`). Explicitly rejecting colons corrected it. On 2026-11-24 at 05:11 UTC, the complete 26-test suite passed on LEGION (exit 0).
+- Pinned verification of the real 266-file baseline passed; an intentionally wrong post-patch pin returned exit 2 before capture. Git diff check passed.
+- Do not regenerate the pre-patch baseline after the updater runs.

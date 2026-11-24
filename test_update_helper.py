@@ -1,6 +1,7 @@
 """Regression checks use synthetic game files only; never touch the real install."""
 import copy
 import hashlib
+import os
 from pathlib import Path
 import tempfile
 import unittest
@@ -36,6 +37,10 @@ class EvidenceTests(unittest.TestCase):
         c = u.compare(a, b)
         self.assertEqual(c["counts"], dict(added=1, removed=1, modified=1, unchanged=1))
         self.assertTrue(c["executable_changed"])
+        self.assertEqual(c["before_executable_sha256"], hashlib.sha256(b"old").hexdigest())
+        self.assertEqual(c["after_executable_sha256"], hashlib.sha256(b"new").hexdigest())
+        self.assertEqual(c["before_file_count"], 3)
+        self.assertEqual(c["after_file_count"], 3)
 
     def test_consistency(self):
         a, b = self.capture(), self.capture()
@@ -106,6 +111,75 @@ class EvidenceTests(unittest.TestCase):
     def test_output_restricted(self):
         with self.assertRaisesRegex(ValueError, "Output must"):
             u.save(self.root / "unsafe.json", {})
+
+
+
+    def test_duplicate_json_keys_rejected(self):
+        p = self.root / "bad.json"
+        p.write_bytes(b'{"complete":true,"complete":false}')
+        with self.assertRaisesRegex(ValueError, "Duplicate JSON key"):
+            u.load_hashed(p)
+
+    def test_digest_binds_to_exact_file_bytes(self):
+        p = self.root / "exact.json"
+        raw = b'{ "hello": 42 }\r\n'
+        p.write_bytes(raw)
+        obj, digest = u.load_hashed(p)
+        self.assertEqual(obj, {"hello": 42})
+        self.assertEqual(digest, hashlib.sha256(raw).hexdigest())
+
+    def test_incomplete_publication_never_visible(self):
+        p = self.root / "capture.json"
+        with patch.object(u, "HERE", self.root.resolve()), patch.object(u.os, "fsync", side_effect=OSError("disk failure")):
+            with self.assertRaisesRegex(OSError, "disk failure"):
+                u.save(p, {"test": True})
+        self.assertFalse(p.exists())
+        self.assertEqual(list(self.root.glob(".uh-*.tmp")), [])
+
+    def test_concurrent_output_creation_never_overwritten(self):
+        p = self.root / "capture.json"
+        real_link = os.link
+        def competing_writer(src, dst):
+            Path(dst).write_bytes(b"other writer")
+            return real_link(src, dst)
+        with patch.object(u, "HERE", self.root.resolve()), patch.object(u.os, "link", competing_writer):
+            with self.assertRaises(FileExistsError):
+                u.save(p, {"test": True})
+        self.assertEqual(p.read_bytes(), b"other writer")
+        self.assertEqual(list(self.root.glob(".uh-*.tmp")), [])
+
+    def test_unsafe_output_names_rejected(self):
+        with patch.object(u, "HERE", self.root.resolve()):
+            for name in ("NUL.json", "evidence.json:stream.json", "bad.txt"):
+                with self.subTest(name=name), self.assertRaises(ValueError):
+                    u.output_path(self.root / name)
+
+    def test_manifest_totals_and_rows_are_strict(self):
+        a = self.capture()
+        for key in ("bytes", "file_count"):
+            b = copy.deepcopy(a)
+            b[key] = float(b[key])
+            with self.assertRaises(ValueError):
+                u.validate(b)
+        for rel in ("aux.dat", "a:stream", "alias. ", "bad\x01name"):
+            b = copy.deepcopy(a)
+            b["files"][0]["path"] = rel
+            with self.subTest(rel=rel), self.assertRaises(ValueError):
+                u.validate(b)
+        b = copy.deepcopy(a)
+        b["files"][0] = None
+        with self.assertRaisesRegex(ValueError, "Invalid file record"):
+            u.validate(b)
+
+    def test_cross_phase_consistency_rejected(self):
+        a, b = self.capture(), self.capture("after")
+        with self.assertRaisesRegex(ValueError, "same capture phase"):
+            u.compare(a, b, True)
+
+    def test_case_only_name_change_is_visible(self):
+        a, b = self.capture(), self.capture("after")
+        b["files"][0]["path"] = b["files"][0]["path"].upper()
+        self.assertEqual(u.compare(a, b)["counts"]["modified"], 1)
 
 
 if __name__ == "__main__":

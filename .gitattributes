@@ -1,0 +1,2 @@
+# JSON manifests are byte-addressed evidence. Preserve exact LF/CRLF bytes.
+*.json -text
