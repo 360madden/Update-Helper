@@ -1,0 +1,487 @@
+{
+  "schema": "update-helper.repo-inventory.v2",
+  "host": "LEGION",
+  "root": "C:\\work",
+  "started_utc": "2026-11-27T22:36:02.541218+00:00",
+  "finished_utc": "2026-11-27T22:36:05.642086+00:00",
+  "complete": false,
+  "repository_count": 34,
+  "repositories": [
+    {
+      "repository": "longchat-perf",
+      "path": "C:\\work\\longchat-perf",
+      "git_marker": "directory",
+      "head": "e13a988186ab3e560bbb1767f660b27f7336c747",
+      "branch": "main",
+      "clean": null,
+      "changed_entries": null,
+      "status_inspected": false,
+      "reference_only": false,
+      "metadata_complete": true,
+      "errors": []
+    },
+    {
+      "repository": "LuaPadModern",
+      "path": "C:\\work\\LuaPadModern",
+      "git_marker": "directory",
+      "head": "559a721ba95f23b419af2ca02597f7d2079c8e18",
+      "branch": "main",
+      "clean": null,
+      "changed_entries": null,
+      "status_inspected": false,
+      "reference_only": false,
+      "metadata_complete": true,
+      "errors": []
+    },
+    {
+      "repository": "Rift-Personal-Teleporter",
+      "path": "C:\\work\\Rift-Personal-Teleporter",
+      "git_marker": "directory",
+      "head": "951dbc0e2f22fe6d4ba9660cb0914007924426b5",
+      "branch": "main",
+      "clean": null,
+      "changed_entries": null,
+      "status_inspected": false,
+      "reference_only": false,
+      "metadata_complete": true,
+      "errors": []
+    },
+    {
+      "repository": "RIFT.RE-Spellcasting",
+      "path": "C:\\work\\RIFT.RE-Spellcasting",
+      "git_marker": "directory",
+      "head": "fe18de0b9083eb1f0a0d341d46adb6808f70d786",
+      "branch": "cloud/wave2-ledger-timing",
+      "clean": null,
+      "changed_entries": null,
+      "status_inspected": false,
+      "reference_only": false,
+      "metadata_complete": true,
+      "errors": []
+    },
+    {
+      "repository": "Rift_Memory_Mover",
+      "path": "C:\\work\\Rift_Memory_Mover",
+      "git_marker": "directory",
+      "head": null,
+      "branch": "master",
+      "clean": null,
+      "changed_entries": null,
+      "status_inspected": false,
+      "reference_only": false,
+      "metadata_complete": false,
+      "errors": [
+        "HEAD unresolved (possibly unborn): Git exited 1"
+      ]
+    },
+    {
+      "repository": "Rift_Taxi",
+      "path": "C:\\work\\Rift_Taxi",
+      "git_marker": "directory",
+      "head": "dc22fe5f41b9213516d77b1a6bf0b0bc8ceecda2",
+      "branch": "research/journey-automation-reporting",
+      "clean": null,
+      "changed_entries": null,
+      "status_inspected": false,
+      "reference_only": false,
+      "metadata_complete": true,
+      "errors": []
+    },
+    {
+      "repository": "RiftChatModern",
+      "path": "C:\\work\\RiftChatModern",
+      "git_marker": "directory",
+      "head": "64e81806a9c295a55dac553e6e91f2f6b81c6f66",
+      "branch": "main",
+      "clean": null,
+      "changed_entries": null,
+      "status_inspected": false,
+      "reference_only": false,
+      "metadata_complete": true,
+      "errors": []
+    },
+    {
+      "repository": "RiftFlythrough",
+      "path": "C:\\work\\RiftFlythrough",
+      "git_marker": "directory",
+      "head": "5bcd4f3558780d08f05d675ed83435f5a5295e7e",
+      "branch": "master",
+      "clean": null,
+      "changed_entries": null,
+      "status_inspected": false,
+      "reference_only": false,
+      "metadata_complete": true,
+      "errors": []
+    },
+    {
+      "repository": "RiftLoginHelper",
+      "path": "C:\\work\\RiftLoginHelper",
+      "git_marker": "directory",
+      "head": "7589fbbdf9b7e577e76f57d2709804c9fc388839",
+      "branch": "main",
+      "clean": null,
+      "changed_entries": null,
+      "status_inspected": false,
+      "reference_only": false,
+      "metadata_complete": true,
+      "errors": []
+    },
+    {
+      "repository": "riftreader2",
+      "path": "C:\\work\\riftreader2",
+      "git_marker": "directory",
+      "head": "8c774f390b8718de3b5aa1d3d707c85a88d7e051",
+      "branch": "codex/rr2-local-feedback-20261128",
+      "clean": null,
+      "changed_entries": null,
+      "status_inspected": false,
+      "reference_only": false,
+      "metadata_complete": true,
+      "errors": []
+    },
+    {
+      "repository": "RiftWorld",
+      "path": "C:\\work\\RiftWorld",
+      "git_marker": "directory",
+      "head": "21379d48af770942174175cbb97457183f615903",
+      "branch": "main",
+      "clean": null,
+      "changed_entries": null,
+      "status_inspected": false,
+      "reference_only": false,
+      "metadata_complete": true,
+      "errors": []
+    },
+    {
+      "repository": "RR2 setup 63ca4b61",
+      "path": "C:\\work\\RR2 setup 63ca4b61",
+      "git_marker": "gitfile",
+      "head": null,
+      "branch": null,
+      "clean": null,
+      "changed_entries": null,
+      "status_inspected": false,
+      "reference_only": false,
+      "metadata_complete": false,
+      "errors": [
+        "Gitfile target not followed; Git metadata not inspected"
+      ]
+    },
+    {
+      "repository": "rr2-portable-rehearsal-f6d5b52",
+      "path": "C:\\work\\rr2-portable-rehearsal-f6d5b52",
+      "git_marker": "gitfile",
+      "head": null,
+      "branch": null,
+      "clean": null,
+      "changed_entries": null,
+      "status_inspected": false,
+      "reference_only": false,
+      "metadata_complete": false,
+      "errors": [
+        "Gitfile target not followed; Git metadata not inspected"
+      ]
+    },
+    {
+      "repository": "rr2-python-c25e42a",
+      "path": "C:\\work\\rr2-python-c25e42a",
+      "git_marker": "directory",
+      "head": "c25e42a0d1035412ff98f8bc3a57d8b651479b89",
+      "branch": "(detached)",
+      "clean": null,
+      "changed_entries": null,
+      "status_inspected": false,
+      "reference_only": false,
+      "metadata_complete": true,
+      "errors": []
+    },
+    {
+      "repository": "rr2-validation-325170d",
+      "path": "C:\\work\\rr2-validation-325170d",
+      "git_marker": "gitfile",
+      "head": null,
+      "branch": null,
+      "clean": null,
+      "changed_entries": null,
+      "status_inspected": false,
+      "reference_only": false,
+      "metadata_complete": false,
+      "errors": [
+        "Gitfile target not followed; Git metadata not inspected"
+      ]
+    },
+    {
+      "repository": "rr2-validation-7ef65f2",
+      "path": "C:\\work\\rr2-validation-7ef65f2",
+      "git_marker": "gitfile",
+      "head": null,
+      "branch": null,
+      "clean": null,
+      "changed_entries": null,
+      "status_inspected": false,
+      "reference_only": false,
+      "metadata_complete": false,
+      "errors": [
+        "Gitfile target not followed; Git metadata not inspected"
+      ]
+    },
+    {
+      "repository": "rr2-validation-af62259",
+      "path": "C:\\work\\rr2-validation-af62259",
+      "git_marker": "gitfile",
+      "head": null,
+      "branch": null,
+      "clean": null,
+      "changed_entries": null,
+      "status_inspected": false,
+      "reference_only": false,
+      "metadata_complete": false,
+      "errors": [
+        "Gitfile target not followed; Git metadata not inspected"
+      ]
+    },
+    {
+      "repository": "rr2-validation-b108ba1",
+      "path": "C:\\work\\rr2-validation-b108ba1",
+      "git_marker": "gitfile",
+      "head": null,
+      "branch": null,
+      "clean": null,
+      "changed_entries": null,
+      "status_inspected": false,
+      "reference_only": false,
+      "metadata_complete": false,
+      "errors": [
+        "Gitfile target not followed; Git metadata not inspected"
+      ]
+    },
+    {
+      "repository": "rr2-validation-ce8f073",
+      "path": "C:\\work\\rr2-validation-ce8f073",
+      "git_marker": "gitfile",
+      "head": null,
+      "branch": null,
+      "clean": null,
+      "changed_entries": null,
+      "status_inspected": false,
+      "reference_only": false,
+      "metadata_complete": false,
+      "errors": [
+        "Gitfile target not followed; Git metadata not inspected"
+      ]
+    },
+    {
+      "repository": "rr2-validation-f8aaabd",
+      "path": "C:\\work\\rr2-validation-f8aaabd",
+      "git_marker": "directory",
+      "head": "f8aaabdfa9da111829af6d049e565e4f39648198",
+      "branch": "(detached)",
+      "clean": null,
+      "changed_entries": null,
+      "status_inspected": false,
+      "reference_only": false,
+      "metadata_complete": true,
+      "errors": []
+    },
+    {
+      "repository": "rr2-validation-fdeb65b",
+      "path": "C:\\work\\rr2-validation-fdeb65b",
+      "git_marker": "gitfile",
+      "head": null,
+      "branch": null,
+      "clean": null,
+      "changed_entries": null,
+      "status_inspected": false,
+      "reference_only": false,
+      "metadata_complete": false,
+      "errors": [
+        "Gitfile target not followed; Git metadata not inspected"
+      ]
+    },
+    {
+      "repository": "rre",
+      "path": "C:\\work\\rre",
+      "git_marker": "directory",
+      "head": "0c777a7e23c25f80b2c358a12d7690d487ac6d78",
+      "branch": "main",
+      "clean": null,
+      "changed_entries": null,
+      "status_inspected": false,
+      "reference_only": false,
+      "metadata_complete": true,
+      "errors": []
+    },
+    {
+      "repository": "rre-cds-key-offline-20261110",
+      "path": "C:\\work\\rre-cds-key-offline-20261110",
+      "git_marker": "gitfile",
+      "head": null,
+      "branch": null,
+      "clean": null,
+      "changed_entries": null,
+      "status_inspected": false,
+      "reference_only": false,
+      "metadata_complete": false,
+      "errors": [
+        "Gitfile target not followed; Git metadata not inspected"
+      ]
+    },
+    {
+      "repository": "rre-collector-offline-20261110",
+      "path": "C:\\work\\rre-collector-offline-20261110",
+      "git_marker": "gitfile",
+      "head": null,
+      "branch": null,
+      "clean": null,
+      "changed_entries": null,
+      "status_inspected": false,
+      "reference_only": false,
+      "metadata_complete": false,
+      "errors": [
+        "Gitfile target not followed; Git metadata not inspected"
+      ]
+    },
+    {
+      "repository": "rre-dotnet-readiness-20261110",
+      "path": "C:\\work\\rre-dotnet-readiness-20261110",
+      "git_marker": "gitfile",
+      "head": null,
+      "branch": null,
+      "clean": null,
+      "changed_entries": null,
+      "status_inspected": false,
+      "reference_only": false,
+      "metadata_complete": false,
+      "errors": [
+        "Gitfile target not followed; Git metadata not inspected"
+      ]
+    },
+    {
+      "repository": "rre-quest-journal-offline-20261111",
+      "path": "C:\\work\\rre-quest-journal-offline-20261111",
+      "git_marker": "gitfile",
+      "head": null,
+      "branch": null,
+      "clean": null,
+      "changed_entries": null,
+      "status_inspected": false,
+      "reference_only": false,
+      "metadata_complete": false,
+      "errors": [
+        "Gitfile target not followed; Git metadata not inspected"
+      ]
+    },
+    {
+      "repository": "rre-sc103-soul-aggregates-20261110",
+      "path": "C:\\work\\rre-sc103-soul-aggregates-20261110",
+      "git_marker": "gitfile",
+      "head": null,
+      "branch": null,
+      "clean": null,
+      "changed_entries": null,
+      "status_inspected": false,
+      "reference_only": false,
+      "metadata_complete": false,
+      "errors": [
+        "Gitfile target not followed; Git metadata not inspected"
+      ]
+    },
+    {
+      "repository": "Soldier",
+      "path": "C:\\work\\Soldier",
+      "git_marker": "directory",
+      "head": "a47a9b2d365d85ccbc39e58601e1cce2e803a997",
+      "branch": "main",
+      "clean": null,
+      "changed_entries": null,
+      "status_inspected": false,
+      "reference_only": false,
+      "metadata_complete": true,
+      "errors": []
+    },
+    {
+      "repository": "Star_Wrath_RE",
+      "path": "C:\\work\\Star_Wrath_RE",
+      "git_marker": "directory",
+      "head": "cc69f12e36605c4d58e448fa62ff483e8c450e25",
+      "branch": "main",
+      "clean": null,
+      "changed_entries": null,
+      "status_inspected": false,
+      "reference_only": false,
+      "metadata_complete": true,
+      "errors": []
+    },
+    {
+      "repository": "telarafly",
+      "path": "C:\\work\\telarafly",
+      "git_marker": "directory",
+      "head": "41aacc0485ed2c90ceb1df7cdb7653853cc52d18",
+      "branch": "master",
+      "clean": null,
+      "changed_entries": null,
+      "status_inspected": false,
+      "reference_only": true,
+      "metadata_complete": true,
+      "errors": []
+    },
+    {
+      "repository": "Update Helper",
+      "path": "C:\\work\\Update Helper",
+      "git_marker": "directory",
+      "head": "6267658902a9d7cdd20f53244fd6805d3f26da07",
+      "branch": "main",
+      "clean": null,
+      "changed_entries": null,
+      "status_inspected": false,
+      "reference_only": false,
+      "metadata_complete": true,
+      "errors": []
+    },
+    {
+      "repository": "wbv-90d298b-20261124",
+      "path": "C:\\work\\wbv-90d298b-20261124",
+      "git_marker": "gitfile",
+      "head": null,
+      "branch": null,
+      "clean": null,
+      "changed_entries": null,
+      "status_inspected": false,
+      "reference_only": false,
+      "metadata_complete": false,
+      "errors": [
+        "Gitfile target not followed; Git metadata not inspected"
+      ]
+    },
+    {
+      "repository": "workbridge-legion-pc-operator",
+      "path": "C:\\work\\workbridge-legion-pc-operator",
+      "git_marker": "gitfile",
+      "head": null,
+      "branch": null,
+      "clean": null,
+      "changed_entries": null,
+      "status_inspected": false,
+      "reference_only": false,
+      "metadata_complete": false,
+      "errors": [
+        "Gitfile target not followed; Git metadata not inspected"
+      ]
+    },
+    {
+      "repository": "workbridge-mcp",
+      "path": "C:\\work\\workbridge-mcp",
+      "git_marker": "directory",
+      "head": "2dc1e039b127237729580a982000a02604224496",
+      "branch": "main",
+      "clean": null,
+      "changed_entries": null,
+      "status_inspected": false,
+      "reference_only": false,
+      "metadata_complete": true,
+      "errors": []
+    }
+  ],
+  "skipped_entries": [],
+  "scope": "Immediate-child .git markers only; no recursion or linked marker targets. Metadata observations are not atomic. Worktree status was not inspected; clean/changed_entries are unknown. Presence does not establish a RIFT recovery target."
+}

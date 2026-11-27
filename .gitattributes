@@ -1,2 +1,4 @@
 # JSON manifests are byte-addressed evidence. Preserve exact LF/CRLF bytes.
 *.json -text
+# Report hashes identify exact generated Markdown bytes on every checkout.
+*.md -text

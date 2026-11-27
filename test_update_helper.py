@@ -171,6 +171,31 @@ class EvidenceTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "Invalid file record"):
             u.validate(b)
 
+    def test_windows_reserved_paths_rejected_on_every_host(self):
+        a = self.capture()
+        invalid = ("CON.txt", "NUL.tar.gz", "aux .txt", "CONIN$.txt",
+                   "conout$", "LPT1.log", "com9", "COM¹.bin", "LPT³",
+                   "folder./item", "folder /item", "folder/AUX/item",
+                   "folder//item", "./item", "folder/../item",
+                   "bad|name", "bad*name", "bad?name", 'bad"name',
+                   "bad<name", "bad>name", "bad\x00name", "bad\x1fname")
+        for name in invalid:
+            b = copy.deepcopy(a)
+            b["files"][0]["path"] = name
+            with self.subTest(name=name), self.assertRaisesRegex(ValueError, "Invalid relative path"):
+                u.validate(b)
+
+    def test_ordinary_windows_paths_are_not_over_rejected(self):
+        a = self.capture()
+        # Device-like prefixes and numeric suffixes beyond 1..9 are ordinary
+        # filenames; Unicode names and leading dots remain valid evidence.
+        for name in ("console.txt", "NUL-extra", "COM10.log", "LPT0.bin",
+                     "folder/.cache", "folder/file name.bin", "données.bin"):
+            b = copy.deepcopy(a)
+            b["files"][0]["path"] = name
+            with self.subTest(name=name):
+                self.assertIn(name.casefold(), u.validate(b))
+
     def test_cross_phase_consistency_rejected(self):
         a, b = self.capture(), self.capture("after")
         with self.assertRaisesRegex(ValueError, "same capture phase"):

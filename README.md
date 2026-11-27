@@ -10,7 +10,7 @@ Reconstructed on LEGION on November 23–24, 2026, because the original AMD-DESK
 
 ```powershell
 Set-Location -LiteralPath 'C:\work\Update Helper'
-python -B -m unittest -v test_update_helper test_post_patch test_verify_cycle
+python -B -m unittest discover -v
 python -B update_helper.py verify before-20261124-legion.json --expected-sha256 6612cab5ad31162cc0eab21266ed3839c4a2ef1e12e3a2aa82536d5b195c983e
 ```
 
@@ -22,6 +22,8 @@ python -B post_patch.py --expected-host LEGION --before before-20261124-legion.j
 
 This captures the installation twice, compares the two post-patch states and publishes a final changes report only if the states match. Each retry must use a new prefix.
 
+The example prefix above is a filename, not an asserted patch date. Choose a new dated prefix for each actual run. Both post-captures must also follow the baseline chronologically; a clock rollback cannot produce a successful final report.
+
 ### Independently verify the completed evidence bundle
 
 ```powershell
@@ -29,6 +31,14 @@ python -B verify_cycle.py --before before-20261124-legion.json --prefix patch-20
 ```
 
 Run this before distributing a completed comparison to downstream repositories. The verifier re-parses all five JSON inputs, checks the pre-patch pin, verifies both post-capture phases and host identity, recomputes both reports, and checks their byte-level provenance. It only reads stored evidence and does not scan the game. A successful result confirms stored evidence consistency, not live client behavior or independently authenticated game-file contents.
+
+### Generate a verified downstream report
+
+```powershell
+python -B report_cycle.py --before before-20261124-legion.json --prefix patch-20261124-attempt-01 --expected-evidence-host LEGION --expected-before-sha256 6612cab5ad31162cc0eab21266ed3839c4a2ef1e12e3a2aa82536d5b195c983e --out patch-20261124-attempt-01-summary.md
+```
+
+Use the prefix of the completed cycle you selected. Omit `--out` to print Markdown. A saved report must be a new `.md` file in the helper root; existing files are never overwritten. Reporting independently verifies the entire bundle before rendering, then binds every detail to those verified bytes. It includes capture scope and times, file counts, executable identities, changed paths with before/after hashes, and all evidence pins. Filename-based categories suggest downstream review without claiming compatibility or modifying another repository.
 
 For a manual, step-by-step comparison, use new names for every attempt (the independent bundle verifier expects the four output names and provenance produced by post_patch.py):
 
@@ -48,7 +58,21 @@ Check each exit code before continuing. A successful compare may report changed 
 - Refuse symlinks/reparse points, inaccessible files, case collisions, missing game executable, mismatched host/root, invalid schemas and overlapping captures.
 - New ordinary JSON output files only, confined to this repository root. Complete flushed bytes are published atomically using a same-volume hard link; no existing file can be overwritten. A failed publication leaves no final manifest. The post-patch runner requires an independently recorded baseline SHA-256 and checks the saved after manifests before publishing results. Git preserves JSON bytes without line-ending conversion.
 - Preserve immutable before/after manifests and comparison JSON. Comparison JSON includes both executable identities, file counts and byte totals even if nothing changed. The one-command cycle binds the consistency report hash as well. File hashes alone do not establish live behavior, addon compatibility, or successful runtime validation.
-- The Python 3.14 standard library is sufficient; no external dependencies.
+- Python 3.11 or newer and its standard library are sufficient; no Python packages are required. Windows filename checks are applied consistently even when stored evidence is verified on Linux.
+
+## Continuous verification
+
+GitHub Actions runs all discovered regression tests on Windows and Linux with Python 3.11 and 3.14. Every matrix job also verifies the pinned baseline, the committed rehearsal bundle and the November 28 capture bundle, then checks that tracked files were not rewritten. These checks use disposable synthetic installations and stored evidence; they require no RIFT installation, LEGION connection or application service. Cloud runners are development scaffolding; capture, comparison and reporting remain standalone local commands.
+
+## Inventory the actual repository candidates
+
+```powershell
+python -B inventory_repos.py --root C:\work --expected-host LEGION --out repo-inventory-YYYYMMDD-legion-01.json
+```
+
+Replace the date placeholder with the current date and select a fresh filename. This discovers immediate child directories with `.git` markers and reads bounded HEAD/branch metadata for ordinary repositories. It does not recurse through source trees, fetch remotes, run worktree-status scans, or modify downstream files. `telarafly` is explicitly marked as a read-only reference. Presence alone does not mean a repository consumes RIFT.
+
+Gitfile targets and linked/reparse entries are recorded without following them. Unavailable or invalid metadata remains unknown; `clean` and `changed_entries` are always unknown because this inventory deliberately does not scan worktree status. A partial inventory is preserved for review and the command returns exit 2. Inspect its per-entry errors and scope before using it to route work; do not reinterpret partial discovery as an empty or clean workspace.
 
 ## Existing complementary tools
 

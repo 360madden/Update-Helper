@@ -1,4 +1,5 @@
 """Exercise the complete cycle with synthetic files, not the live client."""
+import datetime as dt
 from pathlib import Path
 import tempfile
 import unittest
@@ -88,6 +89,28 @@ class CycleTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "SHA-256 mismatch"):
                 post_patch.cycle(self.base, "edited-capture", u.host(), self.pin)
         self.assertFalse((self.output / "edited-capture-changes.json").exists())
+
+    def test_first_capture_overlaps_baseline_refuses_report(self):
+        baseline_finished = dt.datetime.fromisoformat(u.load(self.base)["finished_utc"])
+        real = u.capture
+        calls = 0
+
+        def clock_rollback(*args):
+            nonlocal calls
+            calls += 1
+            result = real(*args)
+            if calls == 1:
+                # Reproduce a wall-clock adjustment during only the first
+                # capture. The second capture alone still compares cleanly.
+                result["started_utc"] = (baseline_finished - dt.timedelta(seconds=1)).isoformat()
+            return result
+
+        with patch.object(u, "capture", clock_rollback):
+            with self.assertRaisesRegex(ValueError, "overlap or are out of order"):
+                post_patch.cycle(self.base, "clock-rollback", u.host(), self.pin)
+        self.assertTrue((self.output / "clock-rollback-after-a.json").exists())
+        self.assertTrue((self.output / "clock-rollback-after-b.json").exists())
+        self.assertFalse((self.output / "clock-rollback-changes.json").exists())
 
 
 if __name__ == "__main__":

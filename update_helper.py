@@ -16,12 +16,34 @@ import socket
 import stat
 import sys
 import tempfile
-import ntpath
 
 SCHEMA = "update-helper.game-files.v1"
 HERE = Path(__file__).resolve().parent
 DEFAULT_GAME = Path(r"C:\Program Files (x86)\Glyph\Games\RIFT\Live")
 HEX = re.compile(r"[0-9a-f]{64}\Z")
+WINDOWS_DEVICES = frozenset({"CON", "PRN", "AUX", "NUL", "CONIN$", "CONOUT$"} |
+                            {prefix + digit for prefix in ("COM", "LPT")
+                             for digit in "123456789¹²³"})
+
+
+def reserved_component(name):
+    """Apply ordinary Windows filename rules on every verification host.
+
+    ntpath.isreserved was added in Python 3.13; calling it directly made even
+    offline evidence verification crash on earlier standard-library runtimes.
+    These explicit component rules keep accepted evidence independent of the
+    host OS and interpreter minor version. They intentionally exclude special
+    NT namespace names and streams, which are not independent game files.
+    See https://learn.microsoft.com/windows/win32/fileio/naming-a-file and
+    https://docs.python.org/3.13/library/os.path.html#os.path.isreserved.
+    """
+    if not name or name in (".", "..") or name.endswith((".", " ")):
+        return True
+    if any(ord(c) < 32 or c in '<>:"/\\|?*' for c in name):
+        return True
+    # Device aliases remain reserved with an extension and with spaces before
+    # the extension; superscript 1/2/3 also denote Windows COM/LPT devices.
+    return name.split(".", 1)[0].rstrip(" ").upper() in WINDOWS_DEVICES
 
 
 def utc():
@@ -137,7 +159,7 @@ def validate(doc):
         # Windows aliases, reserved names, alternate streams and control characters
         # are not valid independent evidence paths.
         if (not rel or p.is_absolute() or "\\" in rel or ":" in rel or
-                any(x in ("", ".", "..") or ntpath.isreserved(x) for x in rel.split("/"))):
+                any(reserved_component(x) for x in rel.split("/"))):
             raise ValueError(f"Invalid relative path: {rel!r}")
         if (type(row.get("size")) is not int or row["size"] < 0 or
                 not isinstance(row.get("sha256"), str) or not HEX.fullmatch(row["sha256"])):
@@ -196,7 +218,7 @@ def output_path(path):
     safe_stat(path.parent)
     # On Windows a colon can create an alternate stream; reserved names can
     # refer to devices. Whitelist ordinary filenames before touching the disk.
-    if not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9._-]*\.json", path.name) or ntpath.isreserved(path.name):
+    if not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9._-]*\.json", path.name) or reserved_component(path.name):
         raise ValueError("Output must have a safe .json filename")
     if path.exists() or path.is_symlink():
         raise FileExistsError(f"Output exists; choose a new filename: {path}")

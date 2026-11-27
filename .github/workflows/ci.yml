@@ -1,0 +1,83 @@
+name: Update Helper CI
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+# CI reads code and historical evidence; it never publishes changes or needs
+# credentials for LEGION, RIFT, or any downstream repository.
+permissions:
+  contents: read
+
+# Superseded runs on the same event/ref can stop, while a PR run and its branch
+# push retain separate identities and cannot cancel each other's results.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  PYTHONDONTWRITEBYTECODE: "1"
+  PYTHONUNBUFFERED: "1"
+  PYTHONUTF8: "1"
+
+jobs:
+  regression:
+    name: Python ${{ matrix.python }} on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 10
+    strategy:
+      # Finish the other platforms after a failure so portability regressions
+      # can be diagnosed from one run rather than repeated serial attempts.
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        python: ["3.11", "3.14"]
+
+    steps:
+      - name: Check out this revision
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Select the supported Python version
+        uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: ${{ matrix.python }}
+
+      - name: Record the actual Python version
+        run: python --version
+
+      # All tests use temporary synthetic installations. Discovery includes
+      # future test modules without maintaining a second explicit module list.
+      - name: Run all standard-library regression tests
+        run: python -B -m unittest discover -v
+
+      # The independent pin is deliberately recorded here. Never derive it
+      # from the file under test, or an altered baseline would validate itself.
+      - name: Verify the immutable LEGION baseline
+        run: >-
+          python -B update_helper.py verify before-20261124-legion.json
+          --expected-sha256 6612cab5ad31162cc0eab21266ed3839c4a2ef1e12e3a2aa82536d5b195c983e
+
+      # Hosted machines verify saved evidence from LEGION, not their own game
+      # installations. Passing this step says nothing about current live RIFT.
+      - name: Independently verify the committed rehearsal bundle
+        run: >-
+          python -B verify_cycle.py
+          --before before-20261124-legion.json
+          --prefix rr2-rehearsal-20261124-01
+          --expected-evidence-host LEGION
+          --expected-before-sha256 6612cab5ad31162cc0eab21266ed3839c4a2ef1e12e3a2aa82536d5b195c983e
+
+      - name: Independently verify the November 28 captured bundle
+        run: >-
+          python -B verify_cycle.py
+          --before before-20261124-legion.json
+          --prefix patch-20261128-legion-01
+          --expected-evidence-host LEGION
+          --expected-before-sha256 6612cab5ad31162cc0eab21266ed3839c4a2ef1e12e3a2aa82536d5b195c983e
+
+      - name: Verify checks did not rewrite tracked files
+        if: ${{ always() }}
+        run: git diff --exit-code HEAD -- .

@@ -42,6 +42,10 @@ def cycle(before_path, prefix, expected_host, expected_before_sha256):
     b, observed_b = u.load_hashed(paths["after-b"])
     u.check_pin(observed_a, a_sha)
     u.check_pin(observed_b, b_sha)
+    # Both captures must follow the baseline, as the independent verifier
+    # requires. Checking only the second capture can publish a bundle that
+    # fails audit after a clock rollback during the first capture.
+    u.compare(before, a)
     consistency = u.compare(a, b, allow_same_phase=True)
     consistency["before_manifest_sha256"] = a_sha
     consistency["after_manifest_sha256"] = b_sha
